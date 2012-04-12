@@ -22,6 +22,10 @@
 package org.jboss.forge.portlet;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.forge.project.Project;
@@ -56,4 +60,44 @@ public class PortletPluginTest extends AbstractShellTest
       assertTrue(project.hasFacet(PortletFacet.class));
    }
    
+   @Test
+   public void testCreatePortlet() throws Exception
+   {
+      Project project = initializeJavaProject();
+      queueInputLines("");
+      
+      // Install portlet facet
+      getShell().execute("portlet setup");
+      assertTrue(project.hasFacet(PortletFacet.class));
+      
+      // Create new helloportlet portlet whith init-param
+      getShell().execute("portlet new-portlet --named helloportlet --title \"My forge portlet\" --short-title ForgePortlet --keywords \"demo,forge,portlet\"");
+      getShell().execute("portlet set-view-id --portlet helloportlet --view \"/home.xhtml\"");
+      getShell().execute("portlet set-edit-id --portlet helloportlet --view \"/edit.xhtml\"");
+      getShell().execute("portlet set-edit-id --portlet helloportlet --view \"/help.xhtml\"");
+      getShell().execute("portlet add-init-param --portlet helloportlet --name javax.portlet.faces.renderPolicy --value NEVER_DELEGATE");
+
+      // Create new hiportlet portlet
+      getShell().execute("portlet new-portlet --named hiportlet --modes \"VIEW,HELP\"");
+
+      // Verify portlet.xml file
+      PortletDescriptor config = project.getFacet(PortletFacet.class).getConfig();
+      String portletXmlOriginal = getResourceContents("src/test/resources/portlet.xml.original");
+      String portletXmlGenerated = config.exportAsString();
+      assertEquals(portletXmlOriginal, portletXmlGenerated);   
+   }
+   
+   private String getResourceContents(String resource) throws Exception
+   {
+      assert resource != null && resource.length() > 0 : "Resource must be specified";
+      final BufferedReader reader = new BufferedReader(new FileReader(resource));
+      final StringBuilder builder = new StringBuilder();
+      String line;
+      while ((line = reader.readLine()) != null)
+      {
+         builder.append(line);
+         builder.append("\n");
+      }
+      return builder.toString();
+   }
 }
