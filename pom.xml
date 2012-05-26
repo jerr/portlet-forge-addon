@@ -18,6 +18,12 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+         <groupId>org.jboss.forge</groupId>
+         <artifactId>forge-javaee-api</artifactId>
+        <version>${forge.api.version}</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
         <groupId>org.jboss.forge</groupId>
         <artifactId>forge-shell-api</artifactId>
         <version>${forge.api.version}</version>
@@ -48,6 +54,11 @@
       <artifactId>jboss-annotations-api_1.1_spec</artifactId>
       <scope>provided</scope>
     </dependency>
+      <dependency>
+         <groupId>org.jboss.forge</groupId>
+         <artifactId>forge-javaee-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
     <dependency>
       <groupId>org.jboss.forge</groupId>
       <artifactId>forge-shell-api</artifactId>
@@ -86,6 +97,25 @@
           <target>1.6</target>
           <encoding>UTF-8</encoding>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <artifactSet>
+                <includes>
+                  <include>org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-impl-javaee</include>
+                </includes>
+              </artifactSet>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

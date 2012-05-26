@@ -21,14 +21,15 @@
  */
 package org.jboss.forge.portlet;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.forge.project.Project;
+import org.jboss.forge.resources.Resource;
 import org.jboss.forge.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.descriptor.api.portletapp20.PortletDescriptor;
@@ -69,22 +70,31 @@ public class PortletPluginTest extends AbstractShellTest
       // Install portlet facet
       getShell().execute("portlet setup");
       assertTrue(project.hasFacet(PortletFacet.class));
+
+      // Install faces facet
+      // getShell().execute("faces setup");
+      // assertTrue(project.hasFacet(FacesFacet.class));
       
       // Create new helloportlet portlet whith init-param
-      getShell().execute("portlet new-portlet --named helloportlet --title \"My forge portlet\" --short-title ForgePortlet --keywords \"demo,forge,portlet\"");
-      getShell().execute("portlet set-view-id --portlet helloportlet --view \"/home.xhtml\"");
-      getShell().execute("portlet set-edit-id --portlet helloportlet --view \"/edit.xhtml\"");
-      getShell().execute("portlet set-edit-id --portlet helloportlet --view \"/help.xhtml\"");
+      getShell().execute("portlet new-faces-portlet --named helloportlet --title \"My forge portlet\" "+
+    		  "--short-title ForgePortlet --keywords \"demo,forge,portlet\" "+
+    		  "--view-id \"/home.xhtml\" --edit-id \"/edit.xhtml\" --edit-id \"/help.xhtml\"");
       getShell().execute("portlet add-init-param --portlet helloportlet --name javax.portlet.faces.renderPolicy --value NEVER_DELEGATE");
 
       // Create new hiportlet portlet
-      getShell().execute("portlet new-portlet --named hiportlet --modes \"VIEW,HELP\"");
+      getShell().execute("portlet new-portlet --named hiportlet --modes \"VIEW,HELP\"  --class demo.hiportlet");
 
       // Verify portlet.xml file
-      PortletDescriptor config = project.getFacet(PortletFacet.class).getConfig();
+      PortletDescriptor config = project.getFacet(PortletFacesFacet.class).getConfig();
       String portletXmlOriginal = getResourceContents("src/test/resources/portlet.xml.original");
       String portletXmlGenerated = config.exportAsString();
-      assertEquals(portletXmlOriginal, portletXmlGenerated);   
+      assertEquals(portletXmlOriginal, portletXmlGenerated);
+   
+      // Verify pom.xml file
+      Resource pom = project.getProjectRoot().getChild("pom.xml");
+      String pomOriginal = getResourceContents("src/test/resources/pom.xml.original");
+      String pomGenerated = getResourceContents(pom.getFullyQualifiedName());
+      assertEquals(pomOriginal, pomGenerated);
    }
    
    private String getResourceContents(String resource) throws Exception
