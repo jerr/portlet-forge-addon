@@ -35,6 +35,9 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.descriptor.api.portletapp20.PortletDescriptor;
 import org.junit.Test;
 
+/**
+ * @author Jeremie Lagarde
+ */
 public class PortletPluginTest extends AbstractShellTest
 {
    @Deployment
@@ -82,7 +85,7 @@ public class PortletPluginTest extends AbstractShellTest
       getShell().execute("portlet add-init-param --portlet helloportlet --name javax.portlet.faces.renderPolicy --value NEVER_DELEGATE");
 
       // Create new hiportlet portlet
-      getShell().execute("portlet new-portlet --named hiportlet --modes \"VIEW,HELP\"  --class demo.hiportlet");
+      getShell().execute("portlet new-portlet --named hiportlet --modes \"VIEW,HELP\"  --class demo.Hiportlet");
 
       // Verify portlet.xml file
       PortletDescriptor config = project.getFacet(PortletFacesFacet.class).getConfig();
@@ -95,6 +98,12 @@ public class PortletPluginTest extends AbstractShellTest
       String pomOriginal = getResourceContents("src/test/resources/pom.xml.original");
       String pomGenerated = getResourceContents(pom.getFullyQualifiedName());
       assertEquals(pomOriginal, pomGenerated);
+      
+      // Verify hiportlet.java file
+      Resource java = project.getProjectRoot().getChildDirectory("src/main/java/demo").getChild("Hiportlet.java");
+      String javaOriginal = getResourceContents("src/test/resources/Hiportlet.java.original");
+      String javaGenerated = getResourceContents(java.getFullyQualifiedName());
+      assertEquals(javaOriginal, javaGenerated);      
    }
    
    private String getResourceContents(String resource) throws Exception

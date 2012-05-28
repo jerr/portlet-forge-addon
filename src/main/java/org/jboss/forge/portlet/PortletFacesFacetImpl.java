@@ -40,8 +40,8 @@ import org.jboss.forge.shell.plugins.RequiresPackagingType;
 /**
  * @author Jeremie Lagarde
  */
-@Alias("forge.spec.portlet")
-@RequiresFacet({ JavaSourceFacet.class, WebResourceFacet.class, DependencyFacet.class })
+@Alias("forge.spec.facesportlet")
+@RequiresFacet({ JavaSourceFacet.class, WebResourceFacet.class, DependencyFacet.class, PortletFacet.class })
 @RequiresPackagingType({ PackagingType.JAR, PackagingType.WAR, PackagingType.BUNDLE })
 public class PortletFacesFacetImpl extends PortletFacetImpl implements PortletFacesFacet
 {

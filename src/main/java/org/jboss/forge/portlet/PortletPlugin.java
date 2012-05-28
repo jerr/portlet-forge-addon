@@ -137,20 +137,23 @@ public class PortletPlugin implements Plugin
 	   newPortlet(portletDescriptor, portletName, packageName+"."+className, portletMimeType, portletModes,
 			   portletTitle, portletShortTitle, portletKeywords);
 	   facet.saveConfig(portletDescriptor);
-	   
-	   JavaClass javaClass = JavaParser.create(JavaClass.class)
-               .setPackage(packageName)
-               .setName(className)
-               .setPublic();
+
+	   JavaClass javaClass = JavaParser.create(JavaClass.class);
+	   javaClass.setPackage(packageName);
+	   javaClass.setName(className);
+
 	   javaClass.addImport("java.io.IOException");
 	   javaClass.addImport("java.io.PrintWriter");
 	   javaClass.addImport("javax.portlet.GenericPortlet");
 	   javaClass.addImport("javax.portlet.RenderRequest");
 	   javaClass.addImport("javax.portlet.RenderResponse");
-	   javaClass.setSuperType("GenericPortlet");
-	   Method<JavaClass> doView = javaClass.addMethod("public void doView(RenderRequest request, RenderResponse response) throws IOException");
+
+	   javaClass.setSuperType("javax.portlet.GenericPortlet");
+	   Method<JavaClass> doView = javaClass.addMethod("public void doView(RenderRequest request, RenderResponse response)");
+	   doView.addThrows("java.io.IOException");
        doView.setBody("PrintWriter writer = response.getWriter();\nwriter.write(\"Hello Forge !\");\nwriter.close();");     
-       
+
+       project.getFacet(JavaSourceFacet.class).saveJavaSource(javaClass);
        shell.println("Created portlet class [" + javaClass.getQualifiedName() + "]");	   
     }
 
