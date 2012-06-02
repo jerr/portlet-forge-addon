@@ -24,7 +24,6 @@ package org.jboss.forge.portlet;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import org.apache.commons.lang.StringUtils;
 import org.jboss.forge.parser.JavaParser;
 import org.jboss.forge.parser.java.JavaClass;
 import org.jboss.forge.parser.java.Method;
@@ -179,11 +178,11 @@ public class PortletPlugin implements Plugin
 	   final PortletDescriptor portletDescriptor = facet.getConfig();
 	   final PortletType<PortletDescriptor> portlet = newPortlet(portletDescriptor, portletName, portletClass, portletMimeType, portletModes,
 			   portletTitle, portletShortTitle, portletKeywords);
-	   if(StringUtils.isNotBlank(viewId))
+	   if(viewId!=null && viewId.length()>0)
 		   getPortletInitParam(portlet, "javax.portlet.faces.defaultViewId.view").value(viewId);
-	   if(StringUtils.isNotBlank(editId))
+	   if(editId!=null && editId.length()>0)
 			getPortletInitParam(portlet, "javax.portlet.faces.defaultViewId.edit").value(editId);
-	   if(StringUtils.isNotBlank(helpId))
+	   if(helpId!=null && helpId.length()>0)
 			getPortletInitParam(portlet, "javax.portlet.faces.defaultViewId.help").value(helpId);
 	   facet.saveConfig(portletDescriptor);
 	}
