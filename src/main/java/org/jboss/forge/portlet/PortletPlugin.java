@@ -171,9 +171,9 @@ public class PortletPlugin implements Plugin
        throws Throwable
 	{
 	   if (!project.hasFacet(PortletFacesFacet.class))
-	      {
-	         request.fire(new InstallFacets(PortletFacesFacet.class));
-	      }
+	   {
+	      request.fire(new InstallFacets(PortletFacesFacet.class));
+	   }
 	   final PortletFacesFacet facet = project.getFacet(PortletFacesFacet.class);
 	   final PortletDescriptor portletDescriptor = facet.getConfig();
 	   final PortletType<PortletDescriptor> portlet = newPortlet(portletDescriptor, portletName, portletClass, portletMimeType, portletModes,
@@ -195,7 +195,8 @@ public class PortletPlugin implements Plugin
 	   final PortletType<PortletDescriptor> portlet = portletDescriptor.createPortlet();
 	   portlet.portletName(portletName).portletClass(portletClass);
 	   portlet.getOrCreateSupports().mimeType(portletMimeType).portletMode(portletModes.split(","));
-	   portlet.getOrCreatePortletInfo().title(portletTitle).shortTitle(portletShortTitle).keywords(portletKeywords);
+	   portlet.getOrCreatePortletInfo().title(portletTitle!=null?portletTitle:portletName);
+	   portlet.getOrCreatePortletInfo().shortTitle(portletShortTitle!=null?portletShortTitle:portletName).keywords(portletKeywords);
 	   return portlet;
     }
    
@@ -215,7 +216,8 @@ public class PortletPlugin implements Plugin
     	       
 	private PortletType<PortletDescriptor> getPortlet(PortletDescriptor portletDescriptor, String portletName) {
 		for (PortletType<PortletDescriptor> portletType : portletDescriptor.getAllPortlet()) {
-			if(portletType.getPortletName().equals(portletName)){
+			if(portletType.getPortletName().equals(portletName))
+			{
 				return portletType;
 			}
 		}
@@ -224,7 +226,8 @@ public class PortletPlugin implements Plugin
 	
 	private InitParamType<PortletType<PortletDescriptor>> getPortletInitParam(PortletType<PortletDescriptor> portlet, String initParamName) {
 		for (InitParamType<PortletType<PortletDescriptor>> initParam : portlet.getAllInitParam()) {
-			if(initParam.getName().equals(initParamName)){
+			if(initParam.getName().equals(initParamName))
+			{
 				return initParam;
 			}
 		}

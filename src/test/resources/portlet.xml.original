@@ -36,8 +36,8 @@
       <portlet-mode>HELP</portlet-mode>
     </supports>
     <portlet-info>
-      <title/>
-      <short-title/>
+      <title>hiportlet</title>
+      <short-title>hiportlet</short-title>
       <keywords/>
     </portlet-info>
   </portlet>
