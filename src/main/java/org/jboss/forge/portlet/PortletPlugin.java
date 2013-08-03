@@ -84,13 +84,13 @@ public class PortletPlugin implements Plugin
    public void setup(final PipeOut out, @Option(name = "quickstart") final boolean quickstart)
 	       throws Throwable
    {
-      if (!project.hasFacet(PortletFacet.class))
-      {
-         request.fire(new InstallFacets(PortletFacet.class));
-      }
       if (!project.hasFacet(WebResourceFacet.class))
       {
          request.fire(new InstallFacets(WebResourceFacet.class));
+      }
+      if (!project.hasFacet(PortletFacet.class))
+      {
+         request.fire(new InstallFacets(PortletFacet.class));
       }
       if (quickstart)
       {

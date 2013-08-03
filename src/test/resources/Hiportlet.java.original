@@ -9,7 +9,8 @@ import javax.portlet.RenderResponse;
 public class Hiportlet extends GenericPortlet
 {
 
-   public void doView(RenderRequest request, RenderResponse response) throws IOException
+   public void doView(RenderRequest request, RenderResponse response)
+         throws IOException
    {
       PrintWriter writer = response.getWriter();
       writer.write("Hello Forge !");
