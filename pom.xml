@@ -3,91 +3,76 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jboss.forge.portlet</groupId>
-  <artifactId>plugin-portlet</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <artifactId>portlet-parent</artifactId>
+  <version>1.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>addon</module>
+    <module>api</module>
+    <module>impl</module>
+    <module>tests</module>
+  </modules>
   <properties>
-    <forge.api.version>1.4.3.Final</forge.api.version>
+    <version.furnace>2.0.0.Beta4</version.furnace>
   </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.jboss.spec</groupId>
-        <artifactId>jboss-javaee-6.0</artifactId>
-        <version>3.0.2.Final</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge</groupId>
-         <artifactId>forge-javaee-api</artifactId>
-        <version>${forge.api.version}</version>
-         <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.forge</groupId>
-        <artifactId>forge-shell-api</artifactId>
-        <version>${forge.api.version}</version>
+        <groupId>org.jboss.forge.furnace</groupId>
+        <artifactId>furnace-api</artifactId>
+        <version>${version.furnace}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>org.jboss.forge</groupId>
-        <artifactId>forge-test-harness</artifactId>
-        <version>${forge.api.version}</version>
+        <groupId>org.jboss.forge.furnace.container</groupId>
+        <artifactId>cdi</artifactId>
+        <version>${version.furnace}</version>
+        <classifier>forge-addon</classifier>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.forge.furnace.container</groupId>
+        <artifactId>cdi-api</artifactId>
+        <version>${version.furnace}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.forge.furnace.test</groupId>
+        <artifactId>arquillian-furnace-classpath</artifactId>
+        <version>${version.furnace}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.jboss.forge</groupId>
-        <artifactId>forge-shell</artifactId>
-        <version>${forge.api.version}</version>
+        <groupId>org.jboss.forge.furnace.test</groupId>
+        <artifactId>furnace-test-harness</artifactId>
+        <version>${version.furnace}</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.portlet</groupId>
+        <artifactId>portlet</artifactId>
+        <version>${project.version}</version>
+        <classifier>forge-addon</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.portlet</groupId>
+        <artifactId>portlet-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.portlet</groupId>
+        <artifactId>portlet-impl</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.portlet</groupId>
+        <artifactId>portlet-spi</artifactId>
+        <version>${project.version}</version>
+        <classifier>forge-addon</classifier>
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <dependencies>
-    <dependency>
-      <groupId>javax.enterprise</groupId>
-      <artifactId>cdi-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.spec.javax.annotation</groupId>
-      <artifactId>jboss-annotations-api_1.1_spec</artifactId>
-      <scope>provided</scope>
-    </dependency>
-      <dependency>
-         <groupId>org.jboss.forge</groupId>
-         <artifactId>forge-javaee-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-    <dependency>
-      <groupId>org.jboss.forge</groupId>
-      <artifactId>forge-shell-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.forge</groupId>
-      <artifactId>forge-test-harness</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.forge</groupId>
-      <artifactId>forge-shell</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-      <artifactId>shrinkwrap-descriptors-impl-javaee</artifactId>
-      <version>2.0.0-alpha-5</version>      
-    </dependency>
-  </dependencies>
-  <repositories>
-    <repository>
-      <id>JBOSS_NEXUS</id>
-      <url>http://repository.jboss.org/nexus/content/groups/public</url>
-    </repository>
-  </repositories>
   <build>
-    <finalName>plugin-portlet</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -97,25 +82,6 @@
           <target>1.6</target>
           <encoding>UTF-8</encoding>
         </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>1.4</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <artifactSet>
-                <includes>
-                  <include>org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-impl-javaee</include>
-                </includes>
-              </artifactSet>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

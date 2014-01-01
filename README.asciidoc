@@ -1,0 +1,54 @@
+== portlet
+:idprefix: id_ 
+
+
+This addon provides *standalone* functionality. The portlet addon enables creation of artifacts (classes, descriptors) with focus on the Java EE 6 Portlet specification.
+
+=== Depends on
+[options="header"]
+|===
+|Addon |Exported |Optional
+
+|ui
+|no
+|no
+
+|templates
+|no
+|no
+
+|projects
+|yes
+|no
+
+|parser-java
+|yes
+|no
+
+|org.jboss.forge.furnace.container:cdi
+|no
+|no
+
+|javaee
+|no
+|no
+
+|===
+
+
+== Setup
+This Addon requires the following installation steps.
+=== Add configuration to pom.xml 
+To use this addon, you must add it as a dependency in the *pom.xml* of your `forge-addon` classified artifact:
+(Make sure the dependency is put all the way to the left, and uses 3 spaces for indentation of GAV)
+[source,xml]
+----
+<dependency>
+   <groupId>org.jboss.forge.portlet</groupId>
+   <artifactId>portlet</artifactId>
+   <classifier>forge-addon</classifier>
+   <version>${version}</version>
+</dependency>
+----
+== Features
+
