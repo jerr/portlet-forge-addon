@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jboss.forge.portlet</groupId>
   <artifactId>plugin-portlet</artifactId>
@@ -8,6 +9,13 @@
   <properties>
     <forge.api.version>1.4.3.Final</forge.api.version>
   </properties>
+
+  <scm>
+    <connection>scm:git:git@github.com:jerr/portlet-forge-addon.git</connection>
+    <developerConnection>scm:git:git@github.com:jerr/portlet-forge-addon.git</developerConnection>
+    <url>https://github.com/jerr/portlet-forge-addon</url>
+  </scm>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -18,10 +26,10 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-         <groupId>org.jboss.forge</groupId>
-         <artifactId>forge-javaee-api</artifactId>
+        <groupId>org.jboss.forge</groupId>
+        <artifactId>forge-javaee-api</artifactId>
         <version>${forge.api.version}</version>
-         <scope>provided</scope>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.jboss.forge</groupId>
@@ -54,11 +62,11 @@
       <artifactId>jboss-annotations-api_1.1_spec</artifactId>
       <scope>provided</scope>
     </dependency>
-      <dependency>
-         <groupId>org.jboss.forge</groupId>
-         <artifactId>forge-javaee-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
+    <dependency>
+      <groupId>org.jboss.forge</groupId>
+      <artifactId>forge-javaee-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.jboss.forge</groupId>
       <artifactId>forge-shell-api</artifactId>
@@ -77,7 +85,7 @@
     <dependency>
       <groupId>org.jboss.shrinkwrap.descriptors</groupId>
       <artifactId>shrinkwrap-descriptors-impl-javaee</artifactId>
-      <version>2.0.0-alpha-5</version>      
+      <version>2.0.0-alpha-5</version>
     </dependency>
   </dependencies>
   <repositories>
