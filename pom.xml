@@ -13,6 +13,7 @@
     <module>tests</module>
   </modules>
   <properties>
+    <version.forge>2.0.0.Beta4</version.forge>
     <version.furnace>2.0.0.Beta4</version.furnace>
   </properties>
   <dependencyManagement>
@@ -37,6 +38,24 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
+        <groupId>org.jboss.forge.addon</groupId>
+        <artifactId>projects</artifactId>
+        <version>${version.forge}</version>
+        <classifier>forge-addon</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.forge.addon</groupId>
+        <artifactId>ui</artifactId>
+        <version>${version.forge}</version>
+        <classifier>forge-addon</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.forge.addon</groupId>
+        <artifactId>javaee</artifactId>
+        <version>${version.forge}</version>
+        <classifier>forge-addon</classifier>
+      </dependency>
+      <dependency>
         <groupId>org.jboss.forge.furnace.test</groupId>
         <artifactId>arquillian-furnace-classpath</artifactId>
         <version>${version.furnace}</version>
@@ -49,26 +68,20 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.portlet</groupId>
+        <groupId>org.jboss.forge.portlet</groupId>
         <artifactId>portlet</artifactId>
         <version>${project.version}</version>
         <classifier>forge-addon</classifier>
       </dependency>
       <dependency>
-        <groupId>org.portlet</groupId>
+        <groupId>org.jboss.forge.portlet</groupId>
         <artifactId>portlet-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.portlet</groupId>
+        <groupId>org.jboss.forge.portlet</groupId>
         <artifactId>portlet-impl</artifactId>
         <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.portlet</groupId>
-        <artifactId>portlet-spi</artifactId>
-        <version>${project.version}</version>
-        <classifier>forge-addon</classifier>
       </dependency>
     </dependencies>
   </dependencyManagement>
