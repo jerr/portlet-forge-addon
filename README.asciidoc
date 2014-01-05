@@ -13,10 +13,6 @@ This addon provides *standalone* functionality. The portlet addon enables creati
 |no
 |no
 
-|templates
-|no
-|no
-
 |projects
 |yes
 |no
@@ -38,13 +34,14 @@ This addon provides *standalone* functionality. The portlet addon enables creati
 
 == Setup
 This Addon requires the following installation steps.
+
 === Add configuration to pom.xml 
 To use this addon, you must add it as a dependency in the *pom.xml* of your `forge-addon` classified artifact:
 (Make sure the dependency is put all the way to the left, and uses 3 spaces for indentation of GAV)
 [source,xml]
 ----
 <dependency>
-   <groupId>org.jboss.forge.portlet</groupId>
+   <groupId>org.jboss.forge.addon</groupId>
    <artifactId>portlet</artifactId>
    <classifier>forge-addon</classifier>
    <version>${version}</version>

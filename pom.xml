@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.jboss.forge.portlet</groupId>
+  <groupId>org.jboss.forge.addon</groupId>
   <artifactId>portlet-parent</artifactId>
   <version>1.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -51,6 +52,18 @@
       </dependency>
       <dependency>
         <groupId>org.jboss.forge.addon</groupId>
+        <artifactId>ui-test-harness</artifactId>
+        <version>${version.forge}</version>
+        <classifier>forge-addon</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.forge.addon</groupId>
+        <artifactId>maven</artifactId>
+        <version>${version.forge}</version>
+        <classifier>forge-addon</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.forge.addon</groupId>
         <artifactId>javaee</artifactId>
         <version>${version.forge}</version>
         <classifier>forge-addon</classifier>
@@ -68,20 +81,46 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.jboss.forge.portlet</groupId>
+        <groupId>org.jboss.forge.addon</groupId>
+        <artifactId>shell-test-harness</artifactId>
+        <version>${version.forge}</version>
+        <classifier>forge-addon</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.forge.addon</groupId>
         <artifactId>portlet</artifactId>
         <version>${project.version}</version>
         <classifier>forge-addon</classifier>
       </dependency>
       <dependency>
-        <groupId>org.jboss.forge.portlet</groupId>
+        <groupId>org.jboss.forge.addon</groupId>
         <artifactId>portlet-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.jboss.forge.portlet</groupId>
+        <groupId>org.jboss.forge.addon</groupId>
         <artifactId>portlet-impl</artifactId>
         <version>${project.version}</version>
+      </dependency>
+
+      <!-- Test Harneses Dependencies -->
+      <dependency>
+        <groupId>org.jboss.forge.furnace.test</groupId>
+        <artifactId>furnace-test-harness</artifactId>
+        <version>${version.furnace}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.forge.furnace.test</groupId>
+        <artifactId>arquillian-furnace-classpath</artifactId>
+        <version>${version.furnace}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.forge.furnace.test</groupId>
+        <artifactId>arquillian-forge-core</artifactId>
+        <version>${version.furnace}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
