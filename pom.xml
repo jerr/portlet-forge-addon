@@ -14,8 +14,8 @@
     <module>tests</module>
   </modules>
   <properties>
-    <version.forge>2.3.0.Final</version.forge>
-    <version.furnace>2.3.0.Final</version.furnace>
+    <version.forge>2.5.0.Final</version.forge>
+    <version.furnace>2.5.0.Final</version.furnace>
   </properties>
   <dependencyManagement>
     <dependencies>

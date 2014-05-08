@@ -13,7 +13,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.jboss.forge.addon.javaee.ui.AbstractJavaEECommand;
-import org.jboss.forge.addon.parser.java.JavaSourceFactory;
 import org.jboss.forge.addon.parser.java.facets.JavaSourceFacet;
 import org.jboss.forge.addon.parser.java.resources.JavaResource;
 import org.jboss.forge.addon.portlet.PortletFacet_2_0;
@@ -34,8 +33,10 @@ import org.jboss.forge.addon.ui.result.Results;
 import org.jboss.forge.addon.ui.util.Categories;
 import org.jboss.forge.addon.ui.util.Metadata;
 import org.jboss.forge.furnace.util.Strings;
-import org.jboss.forge.parser.java.JavaClass;
-import org.jboss.forge.parser.java.Method;
+import org.jboss.forge.roaster.Roaster;
+import org.jboss.forge.roaster.model.JavaClass;
+import org.jboss.forge.roaster.model.source.JavaClassSource;
+import org.jboss.forge.roaster.model.source.MethodSource;
 import org.jboss.shrinkwrap.descriptor.api.portletapp20.PortletDescriptor;
 import org.jboss.shrinkwrap.descriptor.api.portletapp20.PortletType;
 
@@ -81,9 +82,6 @@ public class NewPortletWizard extends AbstractJavaEECommand
    @Inject
    @WithAttributes(label = "Target Directory", required = true)
    private UIInput<DirectoryResource> targetLocation;
-
-   @Inject
-   private JavaSourceFactory javaSourceFactory;
 
    @Override
    public Metadata getMetadata(UIContext context)
@@ -148,7 +146,7 @@ public class NewPortletWizard extends AbstractJavaEECommand
       PortletFacet_2_0 facet = project.getFacet(PortletFacet_2_0.class);
       PortletDescriptor config = facet.getConfig();
 
-      JavaClass javaClass = createJavaClass();
+      JavaClassSource javaClass = createJavaClass(project);
 
       List<String> modes = new ArrayList<String>();
       for (String mode : this.modes.getValue())
@@ -177,22 +175,24 @@ public class NewPortletWizard extends AbstractJavaEECommand
       return Results.success("Portlet " + javaResource + " created");
    }
 
-   private JavaClass createJavaClass()
+   private JavaClassSource createJavaClass(Project project)
    {
       String className = targetClass.getValue();
       String packageName = targetPackage.getValue();
-
+      
       if (Strings.isNullOrEmpty(className))
          className = Strings.capitalize(named.getValue());
 
-      JavaClass javaClass = javaSourceFactory.create(JavaClass.class)
-               .setName(className).setPublic();
+      JavaClassSource javaClass = Roaster.create(JavaClassSource.class)
+               .setName(className)
+               .setPublic()
+               .getOrigin();    
 
-      if (Strings.isNullOrEmpty(packageName))
+      if (packageName != null && !packageName.isEmpty())
       {
          javaClass.setPackage(packageName);
       }
-
+      
       javaClass.addImport("java.io.IOException");
       javaClass.addImport("java.io.PrintWriter");
       javaClass.addImport("javax.portlet.GenericPortlet");
@@ -200,7 +200,7 @@ public class NewPortletWizard extends AbstractJavaEECommand
       javaClass.addImport("javax.portlet.RenderResponse");
 
       javaClass.setSuperType("javax.portlet.GenericPortlet");
-      Method<JavaClass> doView = javaClass
+      MethodSource doView = javaClass
                .addMethod("public void doView(RenderRequest request, RenderResponse response)");
       doView.addThrows("java.io.IOException");
       doView.setBody("PrintWriter writer = response.getWriter();\nwriter.write(\"Hello Forge !\");\nwriter.close();");
