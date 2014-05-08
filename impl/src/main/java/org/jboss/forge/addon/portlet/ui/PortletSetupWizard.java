@@ -28,7 +28,7 @@ import org.jboss.forge.addon.ui.util.Metadata;
  * 
  * @author Jeremie Lagarde
  */
-public class PortletSetupWisard extends AbstractJavaEECommand
+public class PortletSetupWizard extends AbstractJavaEECommand
 {
 
    @Override

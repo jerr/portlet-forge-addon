@@ -44,7 +44,7 @@ import org.jboss.shrinkwrap.descriptor.api.portletapp20.PortletType;
  * 
  * @author Jeremie Lagarde
  */
-public class NewPortletWisard extends AbstractJavaEECommand
+public class NewPortletWizard extends AbstractJavaEECommand
 {
    @Inject
    @WithAttributes(label = "Portlet name", description = "The portlet name", required = true)
